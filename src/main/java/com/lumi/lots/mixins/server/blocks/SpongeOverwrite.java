@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import java.util.*;
 
 import static com.lumi.lots.LumisCore.wetSponge;
+import static com.lumi.lots.LumisCore.config;
 
 @Mixin(BlockSponge.class)
 public class SpongeOverwrite extends Block {
@@ -24,7 +25,10 @@ public class SpongeOverwrite extends Block {
      */
     @Override
     public MapColor getMapColor(int p_149728_1_) {
-        return MapColor.yellowColor;
+        if (config.doSpongeBackport) {
+            return MapColor.yellowColor;
+        }
+        return super.getMapColor(p_149728_1_);
     }
 
     /**
@@ -33,10 +37,13 @@ public class SpongeOverwrite extends Block {
      */
     @Override()
     public void onBlockAdded(World world, int x, int y, int z) {
-        if (absorbWater(world, x, y, z)) {
-            world.setBlock(x, y, z, wetSponge);
-            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(Blocks.water));
+        if (config.doSpongeBackport) {
+            if (absorbWater(world, x, y, z)) {
+                world.setBlock(x, y, z, wetSponge);
+                world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(Blocks.water));
+            }
         }
+        super.onBlockAdded(world, x, y, z);
     }
 
     private boolean absorbWater(World world, int x, int y, int z) {

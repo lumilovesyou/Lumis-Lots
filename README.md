@@ -75,7 +75,7 @@ Backports and reworks modern features while adding new features to 1.7.10.
         <details>
         <summary>Wither Bonemeal</summary>
         Crafted from wither bones and can be used to de-age plants, clear grass/flowers from an area, or turn plants into bushes<br>
-        ID: <code>lumis_lots:wither_bonenmeal</code> <br>
+        ID: <code>lumis_lots:wither_bonemeal</code> <br>
         <img src="https://raw.githubusercontent.com/lumilovesyou/Lumis-Lots/refs/heads/master/readme/wither_bonemeal.png" alt="Bonemeal recoloured with the wither colour palette">
         </details>
     </li>
@@ -134,35 +134,3 @@ Note: Eventually wither bonemeal will be useable as black dye
 ## How to use
 
 Add this mod to your game's `mods` folder along with [Unimixins](https://modrinth.com/mod/unimixins/versions) 0.1.23 or greater.
-
-## To-do
-- [ ] Rings
-    - [ ] Ring Slot
-    - [ ] Enchantments
-    - [ ] Recipes
-- [ ] Tickrate command
-    - [ ] Register command
-    - [ ] Speed up client + server tickrate
-- [ ] Find a fix to displaying the current music track's name
-- [ ] First person view
-    - [x] Hide player's hand
-    - [ ] Show body
-- [ ] Lapis needed for enchanting
-    - [ ] Add slot
-    - [ ] Add requirement enchant
-- [ ] Tooltip to show enchant when enchanting
-- [x] Make inv movement not happen when typing
-    - [x] Fix NEI 1.3.7 GTNH version
-- [x] Add config file
-- [x] Make cobblestone generators make Et Futurum Requiem’s deepslate below Y=22
-- [x] Allow pasting from clipboard
-- [x] Add map colours to blocks
-- [ ] Attempt cleaning up textbox focus code using `setFocused` from GuiTextField.java
-- [ ] Attempt cleaning up leaves overwrite using Mixins
-
-- [x] Organise mixins by client/server
-- [x] Recipe for wither bonemeal
-- [ ] Sponge drying recipe
-- [ ] Floating mobs biome (like from that scp short film)
-- [ ] Wither bonemeal as black dye
-- [ ] Wither bonemeal turns ferns to short ferns

@@ -8,6 +8,7 @@ import static com.lumi.lots.LumisCore.MOD_ID;
 
 public class Config {
     public boolean displayTrackName = false;
+    public boolean doSpongeBackport = true;
     public boolean invMovement = true;
     public boolean musicCooldown = false;
     public boolean metaKeyPasting = true;
