@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.*;
 
-import static com.lumi.lots.LumisCore.wetSponge;
 import static com.lumi.lots.LumisCore.config;
+import static com.lumi.lots.LumisCore.wetSponge;
 
 @Mixin(BlockSponge.class)
 public class SpongeOverwrite extends Block {
@@ -42,6 +42,7 @@ public class SpongeOverwrite extends Block {
                 world.setBlock(x, y, z, wetSponge);
                 world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(Blocks.water));
             }
+            return;
         }
         super.onBlockAdded(world, x, y, z);
     }
@@ -55,7 +56,7 @@ public class SpongeOverwrite extends Block {
         visited.add(createHashFromCoordinates(x, y, z));
 
         int[][] directions = new int[][]{
-                {1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}
+            {1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}
         };
 
         while (!queue.isEmpty() && water.size() < 118) {

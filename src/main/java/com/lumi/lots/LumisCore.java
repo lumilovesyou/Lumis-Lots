@@ -31,8 +31,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.server.S2APacketParticles;
+import net.minecraft.util.WeightedRandomFishable;
 import net.minecraft.world.World;
+import net.minecraftforge.common.FishingHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -93,17 +94,18 @@ public class LumisCore
                 }
             }
 
-            try {
+            //Sponge overwrite and fishing loot table
+            if (config.doSpongeBackport) {
                 Block sponge = Blocks.sponge;
                 sponge.setHarvestLevel("shears", 0);
                 sponge.setCreativeTab(tabs[1]);
                 sponge.setResistance(0.6f);
                 sponge.setStepSound(Block.soundTypeCloth);
-            } catch (Exception e) {
-                logger.error("Lumi says \"Failed to modify sponge!\"");
-                throw new RuntimeException(e);
+
+                FishingHooks.addTreasure(new WeightedRandomFishable(new ItemStack(wetSponge), 1));
             }
         }
+
         //Leaves broken by hoes
         MinecraftForge.EVENT_BUS.register(new Leaves());
     }
@@ -196,7 +198,7 @@ public class LumisCore
                 .setName("Wet Sponge")
                 .setMaterial(8)
                 .setSound(1)
-                .setCreativeTab(8)
+                .setCreativeTab(config.doSpongeBackport ? 8 : -1)
                 .setResistance(0.6f)
                 .setHardness(0.6f)
                 .setHarvestTool("shears")
@@ -289,18 +291,24 @@ public class LumisCore
             OreDictionary.registerOre("compostable", new ItemStack(Items.fish, 1, i));
         }
 
+        //Makes wither bonemeal work like black dye
+        OreDictionary.registerOre("dyeBlack", new ItemStack(witherBonemeal, 1));
+
         //Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(compostingDirt, 1),
-                "AAA", "ABA", "AAA",
-                'A', "compostable",
-                'B', Blocks.dirt
+            new ItemStack(compostingDirt, 1),
+            "AAA", "ABA", "AAA",
+            'A', "compostable",
+            'B', Blocks.dirt
         ));
         GameRegistry.addRecipe(new ShapelessOreRecipe(
-                new ItemStack(witherBonemeal, 2),
-                new Object[] {
-                    witherBone
-                }
+            new ItemStack(witherBonemeal, 2),
+            witherBone
         ));
+        GameRegistry.addSmelting(
+            new ItemStack(wetSponge, 1),
+            new ItemStack(Blocks.sponge, 1),
+            0.15F
+        );
     }
 }

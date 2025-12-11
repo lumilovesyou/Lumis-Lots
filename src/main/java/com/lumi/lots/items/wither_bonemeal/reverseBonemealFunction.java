@@ -1,7 +1,6 @@
 package com.lumi.lots.items.wither_bonemeal;
 
 import com.lumi.lots.items.wither_bonemeal.events.ReverseBonemealEvent;
-import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,20 +22,11 @@ public class reverseBonemealFunction {
         {
             return false;
         }
-
-        if (event.getResult() == Event.Result.ALLOW)
-        {
-            if (!world.isRemote)
-            {
-                item.stackSize--;
-            }
-            return true;
-        }
-
         //Remove flowers
         if (block == Blocks.yellow_flower || block == Blocks.red_flower) {
             if (!world.isRemote) {
                 world.setBlock(x, y, z, Blocks.air);
+                decrementItem(item, world);
             }
             return true;
         }
@@ -52,13 +42,16 @@ public class reverseBonemealFunction {
                     metadata = world.getBlockMetadata(x, y, z);
                 }
 
-                //Check if tall grass (bottom) or not
+                //Check if tall grass/fern (bottom) or not
                 if (metadata == 2) {
                     world.setBlock(x, y, z, Blocks.tallgrass, 1, 2);
+                } else if (metadata == 3) {
+                    world.setBlock(x, y, z, Blocks.tallgrass, 2, 2);
                 } else {
                     world.setBlock(x, y, z, Blocks.tallgrass);
                 }
                 world.setBlock(x, y + 1, z, Blocks.air);
+                decrementItem(item, world);
 
                 return true;
             }
@@ -66,7 +59,10 @@ public class reverseBonemealFunction {
             //Turns grass & fern into bush
             if (block instanceof BlockTallGrass) {
                 if (metadata > 0) {
-                    world.setBlock(x, y, z, Blocks.tallgrass);
+                    if (!world.isRemote) {
+                        world.setBlock(x, y, z, Blocks.tallgrass);
+                        decrementItem(item, world);
+                    }
                     return true;
                 }
                 return false;
@@ -102,6 +98,7 @@ public class reverseBonemealFunction {
                         }
                     }
                 }
+                decrementItem(item, world);
                 return true;
             }
 
@@ -116,11 +113,18 @@ public class reverseBonemealFunction {
 
                         world.setBlockMetadataWithNotify(x, y, z, l, 2);
                     }
-                    item.stackSize--;
+                    decrementItem(item, world);
                 }
                 return true;
             }
         }
         return false;
+    }
+
+    private static void decrementItem(ItemStack item, World world) {
+        if (!world.isRemote)
+        {
+            item.stackSize--;
+        }
     }
 }
