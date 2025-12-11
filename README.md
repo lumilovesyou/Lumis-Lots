@@ -132,24 +132,3 @@ When killed a wither skeleton will drop wither bones following the formula `Drop
 ## How to use
 
 Add this mod to your game's `mods` folder along with [Unimixins](https://modrinth.com/mod/unimixins/versions) 0.1.23 or greater.
-
-## To-do
-- [ ] Rings
-    - [ ] Ring Slot
-    - [ ] Enchantments
-    - [ ] Recipes
-- [ ] Tickrate command
-    - [ ] Register command
-    - [ ] Speed up client + server tickrate
-- [ ] Find a fix to displaying the current music track's name
-- [ ] First person view
-    - [x] Hide player's hand
-    - [ ] Show body
-- [ ] Lapis needed for enchanting
-    - [ ] Add slot
-    - [ ] Add requirement enchant
-- [ ] Tooltip to show enchant when enchanting
-- [ ] Attempt cleaning up textbox focus code using `setFocused` from GuiTextField.java
-- [ ] Attempt cleaning up leaves overwrite using Mixins
-- [ ] Floating mobs biome (like from that scp short film)
-- [x] Fix bonemeal not being used up
