@@ -8,9 +8,10 @@ import static com.lumi.lots.LumisCore.MOD_ID;
 
 public class Config {
     public boolean displayTrackName = false;
-    public boolean doSpongeBackport = true;
+    public boolean spongeBackport = true;
     public boolean invMovement = true;
-    public boolean musicCooldown = false;
+    public boolean customMusicCooldown = true;
+    public int[] musicCooldownTimeRange = {0, 0, 0};
     public boolean metaKeyPasting = true;
     public boolean firstPersonModel = false;
     public int etFuturumDeepslateYLevel = 22;

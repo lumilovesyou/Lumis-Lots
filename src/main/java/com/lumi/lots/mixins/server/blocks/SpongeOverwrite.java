@@ -25,7 +25,7 @@ public class SpongeOverwrite extends Block {
      */
     @Override
     public MapColor getMapColor(int p_149728_1_) {
-        if (config.doSpongeBackport) {
+        if (config.spongeBackport) {
             return MapColor.yellowColor;
         }
         return super.getMapColor(p_149728_1_);
@@ -37,7 +37,7 @@ public class SpongeOverwrite extends Block {
      */
     @Override()
     public void onBlockAdded(World world, int x, int y, int z) {
-        if (config.doSpongeBackport) {
+        if (config.spongeBackport) {
             if (absorbWater(world, x, y, z)) {
                 world.setBlock(x, y, z, wetSponge);
                 world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(Blocks.water));

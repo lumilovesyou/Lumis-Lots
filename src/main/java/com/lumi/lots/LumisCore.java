@@ -11,6 +11,7 @@ import com.lumi.lots.config.Config;
 import com.lumi.lots.gui.MovementHandler;
 import com.lumi.lots.gui.TextFieldFocusChecks.TextFieldFocus;
 import com.lumi.lots.items.ItemBuilder;
+import com.lumi.lots.items.ItemMetaDataHandler;
 import com.lumi.lots.items.ItemUseHandler.OnItemUseHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -25,12 +26,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.WeightedRandomFishable;
 import net.minecraft.world.World;
 import net.minecraftforge.common.FishingHooks;
@@ -79,8 +82,8 @@ public class LumisCore
                 MinecraftForge.EVENT_BUS.register(new DisplayPlayingTrackName());
             }
 
-            //No cooldown music
-            if (!config.musicCooldown) {
+            //Customised music cooldown
+            if (config.customMusicCooldown) {
                 Minecraft mc = Minecraft.getMinecraft();
                 try {
                     Field tickerField = ReflectionHelper.findField(Minecraft.class, "mcMusicTicker", "field_147126_aw");
@@ -95,7 +98,7 @@ public class LumisCore
             }
 
             //Sponge overwrite and fishing loot table
-            if (config.doSpongeBackport) {
+            if (config.spongeBackport) {
                 Block sponge = Blocks.sponge;
                 sponge.setHarvestLevel("shears", 0);
                 sponge.setCreativeTab(tabs[1]);
@@ -119,6 +122,7 @@ public class LumisCore
 
     public static Item witherBone;
     public static Item witherBonemeal;
+    public static Item ring;
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
@@ -198,7 +202,7 @@ public class LumisCore
                 .setName("Wet Sponge")
                 .setMaterial(8)
                 .setSound(1)
-                .setCreativeTab(config.doSpongeBackport ? 8 : -1)
+                .setCreativeTab(config.spongeBackport ? 8 : -1)
                 .setResistance(0.6f)
                 .setHardness(0.6f)
                 .setHarvestTool("shears")
@@ -218,6 +222,7 @@ public class LumisCore
         GameRegistry.registerBlock(compostedDirt, "composted_dirt");
         GameRegistry.registerBlock(wetSponge, "wet_sponge");
 
+        //Items
         witherBone = new ItemBuilder()
                 .setName("Wither Bone")
                 .setCreativeTab(8)
@@ -261,8 +266,45 @@ public class LumisCore
                 })
                 .build();
 
+        ////Rings
+        ring = new ItemBuilder()
+                .setName("ring")
+                .setHasSubtypes(true)
+                .setCombinedMetadataHandler(new ItemMetaDataHandler.CombinedMetadataHandler() {
+                    final IIcon[] icons = new IIcon[4];
+
+                    @Override
+                    public void onRegisterIcons(IIconRegister register) {
+                        icons[0] = register.registerIcon("lumis_lots:rings/ring_gold_diamond");
+                        icons[1] = register.registerIcon("lumis_lots:rings/ring_gold_emerald");
+                        icons[2] = register.registerIcon("lumis_lots:rings/ring_iron_diamond");
+                        icons[3] = register.registerIcon("lumis_lots:rings/ring_iron_emerald");
+                    }
+
+                    @Override
+                    public IIcon onGetIconFromMetadata(int metadata) {
+                        if (metadata < 0 || metadata >= icons.length) metadata = 0;
+                        return icons[metadata];
+                    }
+
+                    @Override
+                    public String onGetUnlocalisedName(ItemStack stack) {
+                        int meta = stack.getItemDamage();
+                        switch (meta) {
+                            case 0: return "item.ring_gold_diamond";
+                            case 1: return "item.ring_gold_emerald";
+                            case 2: return "item.ring_iron_diamond";
+                            case 3: return "item.ring_iron_emerald";
+                            default: return "item.ring_unassigned";
+                        }
+                    }
+                })
+                .build();
+        ////
+
         GameRegistry.registerItem(witherBone, "wither_bone");
         GameRegistry.registerItem(witherBonemeal, "wither_bonemeal");
+        GameRegistry.registerItem(ring, "ring");
 
         //Tags
         Block[] compostableBlocks = {Blocks.pumpkin, Blocks.melon_block, Blocks.cactus, Blocks.hay_block, Blocks.vine, Blocks.waterlily, Blocks.red_mushroom, Blocks.brown_mushroom, Blocks.yellow_flower};
