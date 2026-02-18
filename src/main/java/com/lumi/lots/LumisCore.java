@@ -200,12 +200,14 @@ public class LumisCore
                 .build();
 
         veiledLady = new BlockBuilder()
+                //Do tick events soon!
                 .setName("Veiled Lady")
                 .setMaterial(14)
-                .setSound(4)
+                .setSound(3)
                 .setCreativeTab(4)
                 .setHardness(0.0f)
                 .setResistance(0.0f)
+                .setCollisionsDisabled(true)
                 .build();
 
         wetSponge = new BlockBuilder()
@@ -230,6 +232,7 @@ public class LumisCore
 
         GameRegistry.registerBlock(compostingDirt, "composting_dirt");
         GameRegistry.registerBlock(compostedDirt, "composted_dirt");
+        GameRegistry.registerBlock(veiledLady, "veiled_lady");
         GameRegistry.registerBlock(wetSponge, "wet_sponge");
 
         //Items

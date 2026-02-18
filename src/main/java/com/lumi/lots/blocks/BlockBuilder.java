@@ -41,6 +41,9 @@ public class BlockBuilder {
     //Colour values
     private MapColor mapColour = null;
 
+    //Collision values
+    private boolean setCollisionsDisabled = false;
+
     public BlockBuilder setMaterial(int material) {
         this.material = material;
         return this;
@@ -136,7 +139,33 @@ public class BlockBuilder {
         return this;
     }
 
+    public BlockBuilder setCollisionsDisabled(boolean setCollisionsDisabled) {
+        this.setCollisionsDisabled = setCollisionsDisabled;
+        return this;
+    }
+
     public LumisBlocks build() {
-        return new LumisBlocks(material, name, hardness, resistance, harvestTool, harvestLevel, sound, creativeTab, ticks, tickHandler, dropAmountFortuneHandler, dropAmountHandler, dropTypeHandler, dropMultipleItemsHandler, checkEffectiveToolHandler, playerRelativeBlockHardnessHandler, useToolEffectiveHandler, onBlockAddedHandler, mapColour);
+        return new LumisBlocks(
+                material,
+                name,
+                hardness,
+                resistance,
+                harvestTool,
+                harvestLevel,
+                sound,
+                creativeTab,
+                ticks,
+                tickHandler,
+                dropAmountFortuneHandler,
+                dropAmountHandler,
+                dropTypeHandler,
+                dropMultipleItemsHandler,
+                checkEffectiveToolHandler,
+                playerRelativeBlockHardnessHandler,
+                useToolEffectiveHandler,
+                onBlockAddedHandler,
+                mapColour,
+                setCollisionsDisabled
+        );
     }
 }
