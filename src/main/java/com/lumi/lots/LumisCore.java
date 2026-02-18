@@ -118,6 +118,7 @@ public class LumisCore
 
     public static Block compostingDirt;
     public static Block compostedDirt;
+    public static Block veiledLady;
     public static Block wetSponge;
 
     public static Item witherBone;
@@ -196,6 +197,15 @@ public class LumisCore
                         return drops;
                     }
                 })
+                .build();
+
+        veiledLady = new BlockBuilder()
+                .setName("Veiled Lady")
+                .setMaterial(14)
+                .setSound(4)
+                .setCreativeTab(4)
+                .setHardness(0.0f)
+                .setResistance(0.0f)
                 .build();
 
         wetSponge = new BlockBuilder()

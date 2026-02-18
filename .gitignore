@@ -1,15 +1,11 @@
-# mac os
 .DS_Store
-
-# forge / gradle
+Icon?
 .gradle
 build/
 out/
 classes/
 run/
 .factorypath
-
-# eclipse 
 *.launch
 .settings
 .classpath
@@ -17,20 +13,14 @@ run/
 .metadata
 eclipse
 *.launch
-
-# idea
 .idea/
 *.iml
 *.ipr
 *.iws
-
-# vscode
 .settings/
 .vscode/
 bin/
 .classpath
-
-# other
 bin/
 jars/
 /.nb-gradle/

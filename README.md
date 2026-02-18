@@ -135,6 +135,7 @@ Add this mod to your game's `mods` folder along with [Unimixins](https://modrint
 
 ## To-do
 - [ ] Rings
+    - [ ] Make tick in hotbar
     - [ ] Enchantments
     - [ ] Recipes
 - [ ] Tickrate command
