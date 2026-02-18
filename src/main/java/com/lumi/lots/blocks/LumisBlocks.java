@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import static com.lumi.lots.LumisCore.tabs;
+import com.lumi.lots.LumisCore.Bounds;
 
 public class LumisBlocks extends Block {
     //Ticking values
@@ -117,7 +118,8 @@ public class LumisBlocks extends Block {
             boolean useToolEffectiveHandler,
             OnBlockAddedHandler onBlockAddedHandler,
             MapColor mapColour,
-            boolean disableCollision
+            boolean disableCollision,
+            Bounds blockBounds
     ) {
         //Basic values
         super(materials[material]);
@@ -155,8 +157,11 @@ public class LumisBlocks extends Block {
         //Colour values
         this.mapColour = mapColour;
 
-        //Collision values
+        //Collision + bounds values
         this.disableCollision = disableCollision;
+        if (blockBounds != null) {
+            this.setBlockBounds(blockBounds.x1, blockBounds.y1, blockBounds.z1, blockBounds.x2, blockBounds.y2, blockBounds.z2);
+        }
     }
 
     @Override
@@ -270,4 +275,33 @@ public class LumisBlocks extends Block {
             return super.getCollisionBoundingBoxFromPool(world, x, y, z);
         }
     }
+
+    @Override
+    public boolean isOpaqueCube()
+    {
+        return false;
+    }
+
+    @Override
+    public boolean renderAsNormalBlock()
+    {
+        return false;
+    }
+
+    @Override
+    public int getRenderType()
+    {
+        return 1;
+    }
+
+    //getPlantType function in BlockBush.java
+    //getPlant
+    //getPlantMetadata
+    //canBlockStay
+    //checkAndDropBlock
+    //updateTick
+    //onNeighborBlockChange
+    //canPlaceBlockOn
+    //canPlaceBlockAt
+    //
 }

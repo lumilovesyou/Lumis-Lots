@@ -9,6 +9,8 @@ import com.lumi.lots.blocks.BlockToolHandler.PlayerRelativeBlockHardnessHandler;
 import com.lumi.lots.blocks.BlockToolHandler.ToolEffectiveHandler;
 import net.minecraft.block.material.MapColor;
 
+import com.lumi.lots.LumisCore.Bounds;
+
 public class BlockBuilder {
     //Basic values
     private int material = 0;
@@ -41,8 +43,9 @@ public class BlockBuilder {
     //Colour values
     private MapColor mapColour = null;
 
-    //Collision values
+    //Collision + bounds values
     private boolean setCollisionsDisabled = false;
+    private Bounds blockBounds = null;
 
     public BlockBuilder setMaterial(int material) {
         this.material = material;
@@ -144,28 +147,34 @@ public class BlockBuilder {
         return this;
     }
 
+    public BlockBuilder setBlockBounds(Bounds blockBounds) {
+        this.blockBounds = blockBounds;
+        return this;
+    }
+
     public LumisBlocks build() {
         return new LumisBlocks(
-                material,
-                name,
-                hardness,
-                resistance,
-                harvestTool,
-                harvestLevel,
-                sound,
-                creativeTab,
-                ticks,
-                tickHandler,
-                dropAmountFortuneHandler,
-                dropAmountHandler,
-                dropTypeHandler,
-                dropMultipleItemsHandler,
-                checkEffectiveToolHandler,
-                playerRelativeBlockHardnessHandler,
-                useToolEffectiveHandler,
-                onBlockAddedHandler,
-                mapColour,
-                setCollisionsDisabled
+            material,
+            name,
+            hardness,
+            resistance,
+            harvestTool,
+            harvestLevel,
+            sound,
+            creativeTab,
+            ticks,
+            tickHandler,
+            dropAmountFortuneHandler,
+            dropAmountHandler,
+            dropTypeHandler,
+            dropMultipleItemsHandler,
+            checkEffectiveToolHandler,
+            playerRelativeBlockHardnessHandler,
+            useToolEffectiveHandler,
+            onBlockAddedHandler,
+            mapColour,
+            setCollisionsDisabled,
+            blockBounds
         );
     }
 }

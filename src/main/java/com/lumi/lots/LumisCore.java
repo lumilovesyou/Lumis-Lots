@@ -65,6 +65,19 @@ public class LumisCore
     public boolean etFuturumInstalled;
     public static final CreativeTabs[] tabs = {CreativeTabs.tabAllSearch, CreativeTabs.tabBlock, CreativeTabs.tabBrewing, CreativeTabs.tabCombat, CreativeTabs.tabDecorations, CreativeTabs.tabFood, CreativeTabs.tabInventory, CreativeTabs.tabMaterials, CreativeTabs.tabMisc, CreativeTabs.tabRedstone, CreativeTabs.tabTools, CreativeTabs.tabTransport};
 
+    public class Bounds {
+        public float x1, y1, z1, x2, y2, z2;
+
+        Bounds(float x1, float y1, float z1, float x2, float y2, float z2) {
+            this.x1 = x1;
+            this.y1 = y1;
+            this.z1 = z1;
+            this.x2 = x2;
+            this.y2 = y2;
+            this.z2 = z2;
+        }
+    }
+
     @EventHandler
     public void init(FMLInitializationEvent event) {
         System.out.println("Lumi says \"Hello Forge world!\"");
@@ -201,13 +214,17 @@ public class LumisCore
 
         veiledLady = new BlockBuilder()
                 //Do tick events soon!
+                //Add block placement requirements
+                //Make break if block below broken
+                //Make bonemeal usable on
                 .setName("Veiled Lady")
-                .setMaterial(14)
+                .setMaterial(20)
                 .setSound(3)
                 .setCreativeTab(4)
                 .setHardness(0.0f)
                 .setResistance(0.0f)
                 .setCollisionsDisabled(true)
+                .setBlockBounds(new Bounds(0.3F, 0.0F, 0.3F, 0.7F, 0.7F, 0.7F))
                 .build();
 
         wetSponge = new BlockBuilder()

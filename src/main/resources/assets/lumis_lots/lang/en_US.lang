@@ -3,6 +3,7 @@ tile.false_block.name=False Block
 tile.true_block.name=True Block
 tile.composting_dirt.name=Composting Dirt
 tile.composted_dirt.name=Composted Dirt
+tile.veiled_lady.name=Veiled Lady
 tile.wet_sponge.name=Wet Sponge
 item.wither_bone.name=Wither Bone
 item.wither_bonemeal.name=Wither Bonemeal
