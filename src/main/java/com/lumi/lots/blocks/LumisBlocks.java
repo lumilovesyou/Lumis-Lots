@@ -46,6 +46,11 @@ public class LumisBlocks extends Block {
     //Collision values
     private final boolean disableCollision;
 
+    //Rendering values
+    private final boolean isOpaqueCube;
+    private final boolean renderAsNormalBlock;
+    private final int renderType;
+
     //Static
     private static final Material[] materials = {Material.air,
             Material.anvil,
@@ -119,7 +124,10 @@ public class LumisBlocks extends Block {
             OnBlockAddedHandler onBlockAddedHandler,
             MapColor mapColour,
             boolean disableCollision,
-            Bounds blockBounds
+            Bounds blockBounds,
+            boolean isOpaqueCube,
+            boolean renderAsNormalBlock,
+            int renderType
     ) {
         //Basic values
         super(materials[material]);
@@ -162,6 +170,11 @@ public class LumisBlocks extends Block {
         if (blockBounds != null) {
             this.setBlockBounds(blockBounds.x1, blockBounds.y1, blockBounds.z1, blockBounds.x2, blockBounds.y2, blockBounds.z2);
         }
+
+        //Rendering values
+        this.isOpaqueCube =  isOpaqueCube;
+        this.renderAsNormalBlock = renderAsNormalBlock;
+        this.renderType = renderType;
     }
 
     @Override
@@ -279,19 +292,19 @@ public class LumisBlocks extends Block {
     @Override
     public boolean isOpaqueCube()
     {
-        return false;
+        return isOpaqueCube;
     }
 
     @Override
     public boolean renderAsNormalBlock()
     {
-        return false;
+        return renderAsNormalBlock;
     }
 
     @Override
     public int getRenderType()
     {
-        return 1;
+        return renderType;
     }
 
     //getPlantType function in BlockBush.java
@@ -303,5 +316,4 @@ public class LumisBlocks extends Block {
     //onNeighborBlockChange
     //canPlaceBlockOn
     //canPlaceBlockAt
-    //
 }

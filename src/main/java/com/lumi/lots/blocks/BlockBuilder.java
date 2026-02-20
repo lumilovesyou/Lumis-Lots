@@ -44,8 +44,13 @@ public class BlockBuilder {
     private MapColor mapColour = null;
 
     //Collision + bounds values
-    private boolean setCollisionsDisabled = false;
+    private boolean collisionsDisabled = false;
     private Bounds blockBounds = null;
+
+    //Rendering values
+    private boolean isOpaqueCube = true;
+    private boolean renderAsNormalBlock = true;
+    private int renderType = 0;
 
     public BlockBuilder setMaterial(int material) {
         this.material = material;
@@ -142,13 +147,29 @@ public class BlockBuilder {
         return this;
     }
 
-    public BlockBuilder setCollisionsDisabled(boolean setCollisionsDisabled) {
-        this.setCollisionsDisabled = setCollisionsDisabled;
+    public BlockBuilder setCollisionsDisabled(boolean collisionsDisabled) {
+        this.collisionsDisabled = collisionsDisabled;
         return this;
     }
 
     public BlockBuilder setBlockBounds(Bounds blockBounds) {
         this.blockBounds = blockBounds;
+        return this;
+    }
+
+    public BlockBuilder setCubeOpaque(boolean isOpaqueCube) {
+        this.isOpaqueCube = isOpaqueCube;
+        return this;
+    }
+
+    public BlockBuilder setRenderAsNormalBlock(boolean renderAsNormalBlock) {
+        this.renderAsNormalBlock = renderAsNormalBlock;
+        return this;
+    }
+
+    //Line 347 of RenderBlocks.java
+    public BlockBuilder setRenderType(int renderType) {
+        this.renderType = renderType;
         return this;
     }
 
@@ -173,8 +194,11 @@ public class BlockBuilder {
             useToolEffectiveHandler,
             onBlockAddedHandler,
             mapColour,
-            setCollisionsDisabled,
-            blockBounds
+            collisionsDisabled,
+            blockBounds,
+            isOpaqueCube,
+            renderAsNormalBlock,
+            renderType
         );
     }
 }

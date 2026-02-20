@@ -217,6 +217,7 @@ public class LumisCore
                 //Add block placement requirements
                 //Make break if block below broken
                 //Make bonemeal usable on
+                //Add custom model too!
                 .setName("Veiled Lady")
                 .setMaterial(20)
                 .setSound(3)
@@ -225,6 +226,9 @@ public class LumisCore
                 .setResistance(0.0f)
                 .setCollisionsDisabled(true)
                 .setBlockBounds(new Bounds(0.3F, 0.0F, 0.3F, 0.7F, 0.7F, 0.7F))
+                .setCubeOpaque(false)
+                .setRenderType(1)
+                .setCollisionsDisabled(true)
                 .build();
 
         wetSponge = new BlockBuilder()
