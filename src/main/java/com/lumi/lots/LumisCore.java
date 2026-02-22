@@ -13,6 +13,7 @@ import com.lumi.lots.gui.TextFieldFocusChecks.TextFieldFocus;
 import com.lumi.lots.items.ItemBuilder;
 import com.lumi.lots.items.ItemMetaDataHandler;
 import com.lumi.lots.items.ItemUseHandler.OnItemUseHandler;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -59,6 +60,7 @@ public class LumisCore
     public static final String MOD_VERSION = "@VERSION@";
     private static final Logger logger = LogManager.getLogger(MOD_ID);
     public static Config config;
+    public static final int cswcRenderType = RenderingRegistry.getNextAvailableRenderId();
 
     //Shared variables
     public static Random lumiRand = new Random();
