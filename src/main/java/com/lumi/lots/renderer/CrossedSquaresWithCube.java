@@ -12,7 +12,6 @@ import net.minecraft.world.IBlockAccess;
 import static com.lumi.lots.LumisCore.cswcRenderType;
 
 public class CrossedSquaresWithCube implements ISimpleBlockRenderingHandler {
-    public IBlockAccess blockAccess;
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
@@ -21,47 +20,48 @@ public class CrossedSquaresWithCube implements ISimpleBlockRenderingHandler {
 
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-        //Stolen right from renderCrossSquares
+        //Stolen right from renderCrossSquares as a base, will work on soon
         Tessellator tessellator = Tessellator.instance;
-        tessellator.setBrightness(block.getMixedBrightnessForBlock(this.blockAccess, x, y, z));
-        int l = block.colorMultiplier(this.blockAccess, x, y, z);
+        tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
+        int l = block.colorMultiplier(world, x, y, z);
         float f = (float)(l >> 16 & 255) / 255.0F;
         float f1 = (float)(l >> 8 & 255) / 255.0F;
         float f2 = (float)(l & 255) / 255.0F;
 
-        tessellator.setColorOpaque_F(f, f1, f2);
-        IIcon iicon = renderer.getBlockIconFromSideAndMetadata(block, 0, this.blockAccess.getBlockMetadata(x, y, z));
-
-        if (renderer.hasOverrideBlockTexture())
+        if (EntityRenderer.anaglyphEnable)
         {
-            iicon = renderer.overrideBlockTexture;
+            float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
+            float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
+            float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
+            f = f3;
+            f1 = f4;
+            f2 = f5;
         }
 
-        double d3 = (double)iicon.getMinU();
-        double d4 = (double)iicon.getMinV();
-        double d5 = (double)iicon.getMaxU();
-        double d6 = (double)iicon.getMaxV();
-        double d7 = 0.45D * (double)1.0F;
-        double d8 = (double)x + 0.5D - d7;
-        double d9 = (double)x + 0.5D + d7;
-        double d10 = (double)z + 0.5D - d7;
-        double d11 = (double)z + 0.5D + d7;
-        tessellator.addVertexWithUV(d8, (double)y + (double)1.0F, d10, d3, d4);
-        tessellator.addVertexWithUV(d8, (double)y + 0.0D, d10, d3, d6);
-        tessellator.addVertexWithUV(d9, (double)y + 0.0D, d11, d5, d6);
-        tessellator.addVertexWithUV(d9, (double)y + (double)1.0F, d11, d5, d4);
-        tessellator.addVertexWithUV(d9, (double)y + (double)1.0F, d11, d3, d4);
-        tessellator.addVertexWithUV(d9, (double)y + 0.0D, d11, d3, d6);
-        tessellator.addVertexWithUV(d8, (double)y + 0.0D, d10, d5, d6);
-        tessellator.addVertexWithUV(d8, (double)y + (double)1.0F, d10, d5, d4);
-        tessellator.addVertexWithUV(d8, (double)y + (double)1.0F, d11, d3, d4);
-        tessellator.addVertexWithUV(d8, (double)y + 0.0D, d11, d3, d6);
-        tessellator.addVertexWithUV(d9, (double)y + 0.0D, d10, d5, d6);
-        tessellator.addVertexWithUV(d9, (double)y + (double)1.0F, d10, d5, d4);
-        tessellator.addVertexWithUV(d9, (double)y + (double)1.0F, d10, d3, d4);
-        tessellator.addVertexWithUV(d9, (double)y + 0.0D, d10, d3, d6);
-        tessellator.addVertexWithUV(d8, (double)y + 0.0D, d11, d5, d6);
-        tessellator.addVertexWithUV(d8, (double)y + (double)1.0F, d11, d5, d4);
+        tessellator.setColorOpaque_F(f, f1, f2);
+        IIcon iicon = renderer.getBlockIconFromSideAndMetadata(block, 0, world.getBlockMetadata(x, y, z));
+        //renderer.drawCrossedSquares(iicon, x, y, z, 1.0F);
+
+        double pointA = (double)iicon.getMinU();
+        double pointB = (double)iicon.getMinV();
+        double pointC = (double)iicon.getMaxU();
+        double pointD = (double)iicon.getMaxV();
+        double pointE = 0.5D; //Width of the plane at an angle of the block
+
+        //0.5 is offset from centre of block
+        double pointF = x + 0.5D;
+        double pointG = x + 0.5D;
+        double pointH = z + 0.25D - pointE;
+        double pointI = z + 0.25D + pointE;
+        tessellator.addVertexWithUV(pointF, y + (double)1.0F, pointH, pointA, pointB);
+        tessellator.addVertexWithUV(pointF, y + 0.0D, pointH, pointA, pointD);
+        tessellator.addVertexWithUV(pointG, y + 0.0D, pointI, pointC, pointD);
+        tessellator.addVertexWithUV(pointG, y + (double)1.0F, pointI, pointC, pointB);
+        tessellator.addVertexWithUV(pointG, y + (double)1.0F, pointI, pointA, pointB);
+        tessellator.addVertexWithUV(pointG, y + 0.0D, pointI, pointA, pointD);
+        tessellator.addVertexWithUV(pointF, y + 0.0D, pointH, pointC, pointD);
+        tessellator.addVertexWithUV(pointF, y + (double)1.0F, pointH, pointC, pointB);
+
         return true;
     }
 

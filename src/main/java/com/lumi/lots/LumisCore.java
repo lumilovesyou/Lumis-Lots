@@ -13,6 +13,7 @@ import com.lumi.lots.gui.TextFieldFocusChecks.TextFieldFocus;
 import com.lumi.lots.items.ItemBuilder;
 import com.lumi.lots.items.ItemMetaDataHandler;
 import com.lumi.lots.items.ItemUseHandler.OnItemUseHandler;
+import com.lumi.lots.renderer.CrossedSquaresWithCube;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -112,16 +113,18 @@ public class LumisCore
                 }
             }
 
-            //Sponge overwrite and fishing loot table
-            if (config.spongeBackport) {
-                Block sponge = Blocks.sponge;
-                sponge.setHarvestLevel("shears", 0);
-                sponge.setCreativeTab(tabs[1]);
-                sponge.setResistance(0.6f);
-                sponge.setStepSound(Block.soundTypeCloth);
+            //RenderingRegistry.registerBlockHandler(new CrossedSquaresWithCube());
+        }
 
-                FishingHooks.addTreasure(new WeightedRandomFishable(new ItemStack(wetSponge), 1));
-            }
+        //Sponge overwrite and fishing loot table
+        if (config.spongeBackport) {
+            Block sponge = Blocks.sponge;
+            sponge.setHarvestLevel("shears", 0);
+            sponge.setCreativeTab(tabs[1]);
+            sponge.setResistance(0.6f);
+            sponge.setStepSound(Block.soundTypeCloth);
+
+            FishingHooks.addTreasure(new WeightedRandomFishable(new ItemStack(wetSponge), 1));
         }
 
         //Leaves broken by hoes
@@ -229,7 +232,7 @@ public class LumisCore
                 .setCollisionsDisabled(true)
                 .setBlockBounds(new Bounds(0.3F, 0.0F, 0.3F, 0.7F, 0.7F, 0.7F))
                 .setCubeOpaque(false)
-                .setRenderType(1)
+                .setRenderType(cswcRenderType)
                 .setCollisionsDisabled(true)
                 .build();
 

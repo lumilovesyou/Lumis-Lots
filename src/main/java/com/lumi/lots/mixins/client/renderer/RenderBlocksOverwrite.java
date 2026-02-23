@@ -32,6 +32,4 @@ public class RenderBlocksOverwrite {
             ci.cancel();
         }
     }
-
-
 }

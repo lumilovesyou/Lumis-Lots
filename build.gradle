@@ -36,10 +36,18 @@ repositories {
         name = "jitpack"
         url = "https://jitpack.io"
     }
+    /*
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+     */
 }
 
 dependencies {
     implementation ("com.github.LegacyModdingMC.UniMixins:unimixins-all-1.7.10:0.1.23")
+    //compile "maven.modrinth:json-model-legacy:0.0.3"
+    compile files('libs/JsonModelLegacy-0.0.3-deobf.jar') //Added source by hand because Modrinth Maven wouldn't let me download the deobf
 }
 
 sourceCompatibility = 1.8
