@@ -13,7 +13,6 @@ import com.lumi.lots.gui.TextFieldFocusChecks.TextFieldFocus;
 import com.lumi.lots.items.ItemBuilder;
 import com.lumi.lots.items.ItemMetaDataHandler;
 import com.lumi.lots.items.ItemUseHandler.OnItemUseHandler;
-import com.lumi.lots.renderer.CrossedSquaresWithCube;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -24,6 +23,8 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import net.dragon.jsonmodel.IBlockJsonModel;
+import net.dragon.jsonmodel.JsonBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -50,6 +51,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Random;
+
+import net.dragon.jsonmodel.IBlockJsonModel;
 
 import static com.lumi.lots.items.wither_bonemeal.reverseBonemealFunction.reverseBonemeal;
 
@@ -231,10 +234,19 @@ public class LumisCore
                 .setResistance(0.0f)
                 .setCollisionsDisabled(true)
                 .setBlockBounds(new Bounds(0.3F, 0.0F, 0.3F, 0.7F, 0.7F, 0.7F))
+                .setRenderType(-1)
+                .setRenderAsNormalBlock(false)
                 .setCubeOpaque(false)
-                .setRenderType(cswcRenderType)
-                .setCollisionsDisabled(true)
                 .build();
+
+        JsonBlock.register(
+                (IBlockJsonModel) veiledLady,
+                false,
+                true,
+                false,
+                0,
+                "veiled_cross"
+        );
 
         wetSponge = new BlockBuilder()
                 .setName("Wet Sponge")

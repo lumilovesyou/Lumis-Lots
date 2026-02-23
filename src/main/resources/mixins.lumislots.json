@@ -14,6 +14,7 @@
     "client.renderer.RenderPlayerOverwrite",
     "client.renderer.RenderItemOverwrite",
     "client.renderer.RenderBlocksOverwrite",
-    "client.renderer.RenderGlobalOverwrite"
+    "client.renderer.RenderGlobalOverwrite",
+    "client.jsonModel.PatchJsonModels"
   ]
 }

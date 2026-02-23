@@ -7,6 +7,7 @@ import com.lumi.lots.blocks.BlockDropsHandler.DropTypeHandler;
 import com.lumi.lots.blocks.BlockPlaceHandler.OnBlockAddedHandler;
 import com.lumi.lots.blocks.BlockToolHandler.PlayerRelativeBlockHardnessHandler;
 import com.lumi.lots.blocks.BlockToolHandler.ToolEffectiveHandler;
+import net.dragon.jsonmodel.IBlockJsonModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -22,7 +23,7 @@ import java.util.Random;
 import static com.lumi.lots.LumisCore.tabs;
 import com.lumi.lots.LumisCore.Bounds;
 
-public class LumisBlocks extends Block {
+public class LumisBlocks extends Block implements IBlockJsonModel  {
     //Ticking values
     private final BlockTickHandler tickHandler;
 
@@ -304,7 +305,16 @@ public class LumisBlocks extends Block {
     @Override
     public int getRenderType()
     {
+        if (renderType == -1) {
+            return this.renderType();
+        }
         return renderType;
+    }
+
+    @Override
+    public int getLightOpacity()
+    {
+        return 0;
     }
 
     //getPlantType function in BlockBush.java

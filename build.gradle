@@ -42,12 +42,15 @@ repositories {
         url = "https://api.modrinth.com/maven"
     }
      */
+    maven {
+        url "https://cursemaven.com"
+    }
 }
 
 dependencies {
     implementation ("com.github.LegacyModdingMC.UniMixins:unimixins-all-1.7.10:0.1.23")
     //compile "maven.modrinth:json-model-legacy:0.0.3"
-    compile files('libs/JsonModelLegacy-0.0.3-deobf.jar') //Added source by hand because Modrinth Maven wouldn't let me download the deobf
+    implementation "curse.maven:json-model-legacy-1352716:7353966"
 }
 
 sourceCompatibility = 1.8
