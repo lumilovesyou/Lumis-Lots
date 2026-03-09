@@ -311,12 +311,6 @@ public class LumisBlocks extends Block implements IBlockJsonModel  {
         return renderType;
     }
 
-    @Override
-    public int getLightOpacity()
-    {
-        return 0;
-    }
-
     //getPlantType function in BlockBush.java
     //getPlant
     //getPlantMetadata

@@ -8,6 +8,7 @@ import com.lumi.lots.blocks.BlockPlaceHandler.OnBlockAddedHandler;
 import com.lumi.lots.blocks.BlockTickHandler;
 import com.lumi.lots.blocks.overwrite.Leaves;
 import com.lumi.lots.config.Config;
+import com.lumi.lots.entity.player.LivingUpdate;
 import com.lumi.lots.gui.MovementHandler;
 import com.lumi.lots.gui.TextFieldFocusChecks.TextFieldFocus;
 import com.lumi.lots.items.ItemBuilder;
@@ -52,8 +53,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Random;
 
-import net.dragon.jsonmodel.IBlockJsonModel;
-
 import static com.lumi.lots.items.wither_bonemeal.reverseBonemealFunction.reverseBonemeal;
 
 @Mod(modid = LumisCore.MOD_ID, version = LumisCore.MOD_VERSION)
@@ -62,7 +61,7 @@ public class LumisCore
     //Setup stuffs
     public static final String MOD_ID = "lumis_lots";
     public static final String MOD_VERSION = "@VERSION@";
-    private static final Logger logger = LogManager.getLogger(MOD_ID);
+    public static final Logger lumiLogger = LogManager.getLogger(MOD_ID);
     public static Config config;
     public static final int cswcRenderType = RenderingRegistry.getNextAvailableRenderId();
 
@@ -87,7 +86,7 @@ public class LumisCore
     @EventHandler
     public void init(FMLInitializationEvent event) {
         System.out.println("Lumi says \"Hello Forge world!\"");
-        logger.info("Lumi says \"Hello Forge world!\"");
+        lumiLogger.info("Lumi says \"Hello Forge world!\"");
 
         if (event.getSide().isClient()) {
             if (config.invMovement) {
@@ -132,6 +131,9 @@ public class LumisCore
 
         //Leaves broken by hoes
         MinecraftForge.EVENT_BUS.register(new Leaves());
+
+        //Rings' effects
+        MinecraftForge.EVENT_BUS.register(new LivingUpdate());
     }
 
     @Mod.Instance(MOD_ID)
@@ -226,6 +228,7 @@ public class LumisCore
                 //Make break if block below broken
                 //Make bonemeal usable on
                 //Add custom model too!
+                //Fix item hand model
                 .setName("Veiled Lady")
                 .setMaterial(20)
                 .setSound(3)

@@ -153,3 +153,5 @@ Add this mod to your game's `mods` folder along with [Unimixins](https://modrint
 - [ ] Attempt cleaning up leaves overwrite & music overwrite using Mixins
 - [ ] Floating mobs biome (like from that scp short film)
 - [ ] Baubles support for rings
+- [ ] Tinted glass
+- [ ] Maybe replace the json model mod by just copy-pasting code from 1.8?
